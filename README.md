@@ -1,2 +1,2 @@
 # pageScroll
-JQuery to scroll in between sections beautifully
+Javascript program to scroll in between sections beautifully
