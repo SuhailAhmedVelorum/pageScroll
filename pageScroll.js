@@ -15,6 +15,13 @@ let sections = $('section');
 let num_sec = sections.length;
 let temp;
 
+//Initial CSS
+console.log("f")
+$('.sec').css({"height":"100vh","width":"100vw","display":"flex","align-items":"center","justify-content":"center"});
+$('.alt-scroll').css({"position":"fixed","right":"1%","width":"2%","height":"50%","top":"50%","transform":"translateY(-50%)","display":"inline-block","justify-content":"center","align-items":"cemter","vertical-align":"middle"});
+$('.stops').css({"display":"block","cursor":"pointer","position":"relative","height":"4%","left":"50%","transform":"translateX(-50%)","padding":"5px","background-color":"transparent"});
+$('.sep-line').css({"display":"block","position":"relative","left":"50%","transform":"translateX(-50%)","width":"1px","border-left":"1px solid rgb(255,255,255)"});
+
 if(num_sec >1){
 	let current = 0;//Current active section
 	let timeout = 800;//Allow the event listener to run only once every `timeout` microseconds
