@@ -77,14 +77,14 @@ if(num_sec >1){
 	//Fills the currently active stop
 	function selectstop(position){
 		if(coldist(position) == 0){
-			$('.stops').attr("src","/assets/usables/light.svg");
+			$('.stops').attr("src","./assets/light.svg");
 			$('.sep-line').css("border-left","1px solid rgb(255, 255, 255)");
-			$('.stopper'+position).attr("src","/assets/usables/lightf.svg");
+			$('.stopper'+position).attr("src","./assets/lightf.svg");
 		}
 		else{
-			$('.stops').attr('src','/assets/usables/dark.svg');
+			$('.stops').attr('src','./assets/dark.svg');
 			$('.sep-line').css("border-left","1px solid rgb(0, 0, 0)");
-			$('.stopper'+position).attr("src","/assets/usables/darkf.svg");
+			$('.stopper'+position).attr("src","./assets/darkf.svg");
 		}
 	}
 
@@ -97,10 +97,10 @@ if(num_sec >1){
 	let sep = '<div class="sep-line"></div>';
 	let stopper0;
 	if(coldist(0) == 0){
-		stopper0 = '<img src="/assets/usables/lightf.svg" class="stops stopper0" onclick="teleport(0)">';
+		stopper0 = '<img src="./assets/lightf.svg" class="stops stopper0" onclick="teleport(0)">';
 	}
 	else{
-		stopper0 = '<img src="/assets/usables/blackf.svg" class="stops stopper0" onclick="teleport(0)">';
+		stopper0 = '<img src="./assets/blackf.svg" class="stops stopper0" onclick="teleport(0)">';
 	}
 	let template = document.createElement('template');
 	template.innerHTML = stopper0;
@@ -110,7 +110,7 @@ if(num_sec >1){
 	//Adds the separating lines and the following circle stops
 	let stopper;
 	for(temp = 1; temp < num_sec; temp++){
-		stopper = '<img src="/assets/usables/light.svg" class="stops stopper'+temp+'" onclick="teleport('+temp+')">';
+		stopper = '<img src="./assets/light.svg" class="stops stopper'+temp+'" onclick="teleport('+temp+')">';
 		template = document.createElement('template');
 		template.innerHTML = sep + stopper;
 		altscr.appendChild(template.content);
