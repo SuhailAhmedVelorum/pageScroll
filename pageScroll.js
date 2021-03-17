@@ -1,39 +1,120 @@
+//section tags are identified
+//set classes for each of the sections
+//base class = sec
+//overriding class = sec1, sec2 so on
+
 let sections = $('section');
-let current = 0;
-let timeout = 800;
-//Allow the event listener to run only once every `timeout` microseconds
-let lastCall = 0;
-//Stores the last time the event listener ran successfully
+let num_sec = sections.length;
+let temp;
 
-$(document).on('mousewheel DOMMouseScroll', function(e) {
-	if (lastCall >= (Date.now() - timeout)){
+if(num_sec >1){
+	let current = 0;//Current active section
+	let timeout = 800;//Allow the event listener to run only once every `timeout` microseconds
+	let lastCall = 0;//Stores the last time the event listener ran successfully
+
+	$(document).on('mousewheel DOMMouseScroll', function(e) {
 		//Event was triggered too fast so ignored
-		return;
-	}
-	lastCall = Date.now();
-	target = 0;
-	//target was reset
- 	var delta = e.originalEvent.detail < 0 || e.originalEvent.wheelDelta > 0 ? 1 : -1;
-	//delta set to 1 if scrolled up and -1 if scrolled down
+		if (lastCall >= (Date.now() - timeout)){
+			return;
+		}
+		lastCall = Date.now();
+		target = 0;
+		
+		//delta set to 1 if scrolled up and -1 if scrolled down
+	 	let delta = e.originalEvent.detail < 0 || e.originalEvent.wheelDelta > 0 ? 1 : -1;
 
-	 if(delta < 0){
-		//Handling scroll down
-		target = current + 1;
-		//Target set to next section
+		//Scrolled down
+		if(delta < 0){
+			target = current + 1;
+		}
+		//Scrolled up
+		else{
+			target = current - 1;
+		}
+
+		//Movement to scrolled section - checks existance and prevents out of bounds
+		if(sections.eq(target).length && target >= 0){
+			current = target;
+			$('body, html').animate({
+							scrollTop: sections.eq(current).offset().top
+						  }, 800);
+			selectstop(target);
+		}
+	});
+
+	//Animate and move to the nth section and set fill current circle stop
+	function teleport(n){
+		$('body, html').animate({
+			scrollTop: sections.eq(n).offset().top
+		  }, 800);		
+		selectstop(n);
+	}
+
+	//Calculate the color distance between the background color of the section and b/w returns 0 for dark background and 1 for light
+	function coldist(temp){
+		let bckgcolvals = $(".sec"+(temp)).css("background-color").slice(4,-1).split(",");
+		let ra = parseInt(bckgcolvals[0]);
+		let ga = parseInt(bckgcolvals[1]);
+		let ba = parseInt(bckgcolvals[2]);
+		let disttow = Math.sqrt(Math.pow(255-ra,2)+Math.pow(255-ga,2)+Math.pow(255-ba,2));
+		let disttob = Math.sqrt(Math.pow(ra,2)+Math.pow(ga,2)+Math.pow(ba,2));
+		if(disttob > disttow){
+			return 1;
+		}
+		else{
+			return 0;
+		}
+	}
+
+	//Fills the currently active stop
+	function selectstop(position){
+		if(coldist(position) == 0){
+			$('.stops').attr("src","/static/assets/usables/light.svg");
+			$('.sep-line').css("border-left","1px solid rgb(255, 255, 255)");
+			$('.stopper'+position).attr("src","/static/assets/usables/lightf.svg");
+		}
+		else{
+			$('.stops').attr('src','/static/assets/usables/dark.svg');
+			$('.sep-line').css("border-left","1px solid rgb(0, 0, 0)");
+			$('.stopper'+position).attr("src","/static/assets/usables/darkf.svg");
+		}
+	}
+
+	//Defining altscroll
+	let altscr = document.createElement("div");
+	altscr.className = "alt-scroll";
+	altscr.id= "alt-scroll";
+
+	//Adds the first circle stop and defines the separating line
+	let sep = '<div class="sep-line"></div>';
+	let stopper0;
+	if(coldist(0) == 0){
+		stopper0 = '<img src="/static/assets/usables/lightf.svg" class="stops stopper0" onclick="teleport(0)">';
 	}
 	else{
-		//Handling scroll up
-		target = current - 1;
-		//Target set to previous section
+		stopper0 = '<img src="/static/assets/usables/blackf.svg" class="stops stopper0" onclick="teleport(0)">';
+	}
+	let template = document.createElement('template');
+	template.innerHTML = stopper0;
+	altscr.appendChild(template.content.firstChild);
+
+
+	//Adds the separating lines and the following circle stops
+	let stopper;
+	for(temp = 1; temp < num_sec; temp++){
+		stopper = '<img src="/static/assets/usables/light.svg" class="stops stopper'+temp+'" onclick="teleport('+temp+')">';
+		template = document.createElement('template');
+		template.innerHTML = sep + stopper;
+		altscr.appendChild(template.content);
 	}
 
-	if(sections.eq(target).length && target >= 0){
-		//Checks if target section exists in html
-		current = target;
-		//Current has been set to target
-		$('body, html').animate({
-						scrollTop: sections.eq(current).offset().top
-					  }, 800);
-		//Move to the target(now stored in current) section
-	}
-});
+	//Add my beautiful scroll to the page
+	document.body.appendChild(altscr);
+
+	//Dynamically set the height of the separating lines
+	let altscrlheight = $('.alt-scroll').css('height').slice(0,-2);
+	let spercent = 1700/altscrlheight;
+	let lineavail = 100 - (spercent*num_sec);
+	let linepercent = lineavail/(num_sec-1);
+	$('.sep-line').css('height',linepercent+'%');
+}
