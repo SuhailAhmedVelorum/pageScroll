@@ -1,3 +1,11 @@
+/*!
+ * pageScroll
+ * https://github.com/SuhailAhmedVelorum/pageScroll
+ *
+ * @license GPLv3 for open source use only
+ *
+ */
+
 //section tags are identified
 //set classes for each of the sections
 //base class = sec
