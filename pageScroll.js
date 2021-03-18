@@ -9,18 +9,17 @@
 //section tags are identified
 //set classes for each of the sections
 //base class = sec
-//overriding class = sec1, sec2 so on
+//overriding class = sec1, sec2 so on make sure to set !important
 
 let sections = $('section');
 let num_sec = sections.length;
 let temp;
 
 //Initial CSS
-console.log("f")
-$('.sec').css({"height":"100vh","width":"100vw","display":"flex","align-items":"center","justify-content":"center"});
-$('.alt-scroll').css({"position":"fixed","right":"1%","width":"2%","height":"50%","top":"50%","transform":"translateY(-50%)","display":"inline-block","justify-content":"center","align-items":"cemter","vertical-align":"middle"});
-$('.stops').css({"display":"block","cursor":"pointer","position":"relative","height":"4%","left":"50%","transform":"translateX(-50%)","padding":"5px","background-color":"transparent"});
-$('.sep-line').css({"display":"block","position":"relative","left":"50%","transform":"translateX(-50%)","width":"1px","border-left":"1px solid rgb(255,255,255)"});
+$('.sec').css({"height":"100vh","width":"100vw","display":"flex","align-items":"center","justify-content":"center","background-color":"rgb(0,0,0)"});
+$('body').css("overflow","hidden");
+$('html').css("overflow","hidden");
+$('*').css({"padding":"0px","margin":"0px","box-sizing":"border-box"});
 
 if(num_sec >1){
 	let current = 0;//Current active section
@@ -107,7 +106,7 @@ if(num_sec >1){
 		stopper0 = '<img src="./assets/lightf.svg" class="stops stopper0" onclick="teleport(0)">';
 	}
 	else{
-		stopper0 = '<img src="./assets/blackf.svg" class="stops stopper0" onclick="teleport(0)">';
+		stopper0 = '<img src="./assets/darkf.svg" class="stops stopper0" onclick="teleport(0)">';
 	}
 	let template = document.createElement('template');
 	template.innerHTML = stopper0;
@@ -125,6 +124,11 @@ if(num_sec >1){
 
 	//Add my beautiful scroll to the page
 	document.body.appendChild(altscr);
+	$('.alt-scroll').css({"position":"fixed","right":"1%","width":"2%","height":"50%","top":"50%","transform":"translateY(-50%)","display":"inline-block","justify-content":"center","align-items":"cemter","vertical-align":"middle"});
+	$('.stops').css({"display":"block","cursor":"pointer","position":"relative","height":"4%","left":"50%","transform":"translateX(-50%)","padding":"5px","background-color":"transparent"});
+	$('.sep-line').css({"display":"block","position":"relative","left":"50%","transform":"translateX(-50%)","width":"1px","border-left":"1px solid rgb(255,255,255)"});
+	selectstop(0);
+	
 
 	//Dynamically set the height of the separating lines
 	let altscrlheight = $('.alt-scroll').css('height').slice(0,-2);
