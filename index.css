@@ -1,5 +1,34 @@
+@import url("https://dev-cats.github.io/code-snippets/JetBrainsMono.css");
+
 .sec0{
     background-color: aqua !important;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 300%;
+}
+
+.sec1{
+    background-color: chartreuse !important;
+    font-family: 'JetBrainsMono';
+    font-size: 300%;
+    color: blue;    
+}
+
+.sec2{
+    background-color: darkgrey !important;
+    font-family: monospace;
+    font-size: 300%;
+    color: darkmagenta;
+}
+
+.sec3{
+    background-color: crimson !important;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 300%;
+}
+
+.sec4{
+    background-color: deeppink !important;
+    font-family: "San Francisco";
+    font-size: 300%;
+    src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
 }
